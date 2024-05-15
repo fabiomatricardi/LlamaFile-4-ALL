@@ -1,0 +1,120 @@
+
+Original Repo from https://huggingface.co/qnguyen3/nanoLLaVA
+nanoLLaVA - Sub 1B Vision-Language Model
+nanoLLaVA is a "small but mighty" 1B vision-language model designed to run efficiently on edge devices.
+Base LLM: Quyen-SE-v0.1 (Qwen1.5-0.5B)
+Vision Encoder: google/siglip-so400m-patch14-384
+
+GGUF Format from abetlen
+https://huggingface.co/abetlen/nanollava-gguf
+
+Save in `nanollava` subfolder
+nanollava-mmproj-f16.gguf
+nanollava-text-model-f16.gguf
+
+Original tweet
+https://x.com/stablequan/status/1788378848217981274
+
+
+Run it with Llamafile
+https://github.com/Mozilla-Ocho/llamafile?tab=readme-ov-file
+
+copy .\llamafile-0.8.4.exe qwen1_5-0_5b-chat-q8.llamafile
+download https://cosmo.zip/pub/cosmos/bin/zip
+rename to .exe
+
+or downlad
+https://github.com/Mozilla-Ocho/llamafile/releases/download/0.8.4/zipalign-0.8.4
+rename to zipalign.exe
+
+
+create a .args file
+```
+-m
+qwen1_5-0_5b-chat-q8_0.gguf
+--host
+0.0.0.0
+-c
+12000
+...
+
+```
+
+
+All parameters here https://github.com/Mozilla-Ocho/llamafile/blob/main/llama.cpp/server/README.md
+
+
+
+.\zipalign.exe -j0 qwen1_5-0_5b-chat-q8.llamafile qwen1_5-0_5b-chat-q8_0.gguf .args
+
+rename to exe file
+ren qwen1_5-0_5b-chat-q8.llamafile qwen1_5-0_5b-chat-q8.exe
+
+
+run
+▶ .\qwen1_5-0_5b-chat-q8.exe --nobrowser
+```
+llama server listening at http://127.0.0.1:8080
+llama server listening at http://10.88.200.75:8080
+
+opening browser tab... (pass --nobrowser to disable)
+```
+
+
+python -m venv venv
+venv\Scripts\activate
+
+
+references for openAI API chat completion
+https://platform.openai.com/docs/api-reference/chat/create
+
+
+
+
+ALL TOGETHER
+```
+➜ copy .\llamafile-0.8.4.exe qwen1_5-0_5b-chat-q8.llamafile
+➜ .\zip.exe -j0 qwen1_5-0_5b-chat-q8.llamafile qwen1_5-0_5b-chat-q8_0.gguf .args
+  adding: qwen1_5-0_5b-chat-q8_0.gguf (stored 0%)
+  adding: .args (stored 0%)
+➜ ren qwen1_5-0_5b-chat-q8.llamafile qwen1_5-0_5b-chat-q8.exe
+➜ llamafile ⚡
+```
+
+
+what is industrial Process control automation?
+
+
+list the most important topics from the following text:
+---
+In artificial intelligence, an agent is a computer program or system that is designed to perceive its environment, make decisions and take actions to achieve a specific goal or set of goals. The agent operates autonomously, meaning it is not directly controlled by a human operator.
+Agents can be classified into different types based on their characteristics, such as whether they are reactive or proactive, whether they have a fixed or dynamic environment, and whether they are single or multi-agent systems.
+Reactive agents are those that respond to immediate stimuli from their environment and take actions based on those stimuli. Proactive agents, on the other hand, take initiative and plan ahead to achieve their goals. The environment in which an agent operates can also be fixed or dynamic. Fixed environments have a static set of rules that do not change, while dynamic environments are constantly changing and require agents to adapt to new situations.
+Multi-agent systems involve multiple agents working together to achieve a common goal. These agents may have to coordinate their actions and communicate with each other to achieve their objectives. Agents are used in a variety of applications, including robotics, gaming, and intelligent systems. They can be implemented using different programming languages and techniques, including machine learning and natural language processing.
+Artificial intelligence is defined as the study of rational agents. A rational agent could be anything that makes decisions, such as a person, firm, machine, or software. It carries out an action with the best outcome after considering past and current percepts(agent’s perceptual inputs at a given instance). An AI system is composed of an agent and its environment. The agents act in their environment. The environment may contain other agents.
+An agent is anything that can be viewed as:
+Perceiving its environment through sensors and
+Acting upon that environment through actuators
+---
+
+
+
+rewrite the following text for an article on how to use totally free tools to build AI agents:
+---
+In artificial intelligence, an agent is a computer program or system that is designed to perceive its environment, make decisions and take actions to achieve a specific goal or set of goals. The agent operates autonomously, meaning it is not directly controlled by a human operator.
+Agents can be classified into different types based on their characteristics, such as whether they are reactive or proactive, whether they have a fixed or dynamic environment, and whether they are single or multi-agent systems.
+Reactive agents are those that respond to immediate stimuli from their environment and take actions based on those stimuli. Proactive agents, on the other hand, take initiative and plan ahead to achieve their goals. The environment in which an agent operates can also be fixed or dynamic. Fixed environments have a static set of rules that do not change, while dynamic environments are constantly changing and require agents to adapt to new situations.
+Multi-agent systems involve multiple agents working together to achieve a common goal. These agents may have to coordinate their actions and communicate with each other to achieve their objectives. Agents are used in a variety of applications, including robotics, gaming, and intelligent systems. They can be implemented using different programming languages and techniques, including machine learning and natural language processing.
+Artificial intelligence is defined as the study of rational agents. A rational agent could be anything that makes decisions, such as a person, firm, machine, or software. It carries out an action with the best outcome after considering past and current percepts(agent’s perceptual inputs at a given instance). An AI system is composed of an agent and its environment. The agents act in their environment. The environment may contain other agents.
+An agent is anything that can be viewed as:
+Perceiving its environment through sensors and
+Acting upon that environment through actuators
+---
+
+
+
+
+
+zipalign is a zip archive alignment tool that helps ensure that all uncompressed files in the archive are aligned relative to the start of the file. This lets the files be accessed directly via mmap(2) , removing the need to copy this data in RAM and reducing your app's memory usage.
+Use zipalign to optimize your APK file before distributing it to end users. If you build using Android Studio, which uses the Android Gradle plugin (AGP), this is done automatically. In this case, you should still use zipalign to verify that the APK is aligned, but you don't need to align it. This documentation is mainly for maintainers of custom build systems.
+To achieve alignment, zipalign alters the size of the "extra" field in the zip Local File Header sections. This process can also alter existing data in the "extra" fields.
